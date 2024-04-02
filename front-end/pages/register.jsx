@@ -1,12 +1,24 @@
 import { useState } from "react";
+import axios from "axios";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submitForm = (e) =>{
+  const submitForm = async (e) => {
+    const form = new FormData();
+    form.append('name', name);
+    form.append('email', email);
+    form.append('password', password);
     e.preventDefault();
-    
-  }
+    try {
+      await axios.post("http://localhost/api/User/register",form);
+      console.log('Wait while authenticating...');
+      console.log('Registered successfully');
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
+  };
   return (
     <div className="bg-[#fae6cf] h-[100vh] flex ">
       <form onSubmit={submitForm} className=" w-[30%] h-[40%] flex flex-col m-auto justify-between">
