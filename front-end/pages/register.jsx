@@ -5,6 +5,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const submitForm = (e) =>{
     e.preventDefault();
+    
   }
   return (
     <div className="bg-[#fae6cf] h-[100vh] flex ">
