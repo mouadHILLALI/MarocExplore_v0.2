@@ -14,9 +14,14 @@ const Register = () => {
     form.append('password', password);
     e.preventDefault();
     try {
-      await axios.post("http://localhost/api/User/register",form);
+      const res =  await axios.post("http://localhost/api/User/register",form);
       console.log('Wait while authenticating...');
       console.log('Registered successfully');
+      setName("");
+      setEmail("");
+      setPassword("");
+      const token = res.data.token ;
+      localStorage.setItem('token', token);
       navigate("/dashboard");
     } catch (error) {
       console.error('Registration failed:', error);
