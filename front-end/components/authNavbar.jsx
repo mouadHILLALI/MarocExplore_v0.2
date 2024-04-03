@@ -9,7 +9,7 @@ const Anavbar = () => {
         navigate("/");
     }
     return <>
-            <nav className="p-2 flex justify-between">
+            <nav className="p-2 flex justify-between items-center">
                 <h1 className="font-bold text-3xl" >MarocExplore.</h1>
                 <button onClick={logout} className="text-[#3e9253] hover:text-black font-bold mr-3" >Logout</button>
             </nav>
