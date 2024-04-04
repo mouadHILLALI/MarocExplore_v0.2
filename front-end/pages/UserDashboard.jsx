@@ -2,8 +2,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Anavbar from "../components/authNavbar.jsx";
-
+import Trajectory from "../components/trajectories.jsx";
 const Dashboard = () => {
+  const token = localStorage.getItem("token");
   const [categories, setCategories] = useState([]);
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
@@ -25,6 +26,7 @@ const Dashboard = () => {
 
     fetchCategories();
   }, []);
+ 
   const handleForm = async (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -38,7 +40,7 @@ const Dashboard = () => {
     setEnd_date("");
     setImage("");
     setCategory_id("");
-    const token = localStorage.getItem("token");
+
     try {
       const res = await axios.post(
         "http://localhost/api/Trajectory/Create",
@@ -122,10 +124,7 @@ const Dashboard = () => {
               </option>
             ))}
           </select>
-          <button
-            type="submit"
-            className="font-bold text-xl"
-          >
+          <button type="submit" className="font-bold text-xl">
             Add
           </button>
           <button
@@ -138,6 +137,7 @@ const Dashboard = () => {
           </button>
         </form>
       )}
+      <Trajectory/>
     </div>
   );
 };
