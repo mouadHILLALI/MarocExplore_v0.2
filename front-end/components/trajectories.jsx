@@ -14,7 +14,6 @@ const Trajectory = () => {
           },
         });
         setTrajectories(res.data.trajectories);
-        console.log(trajectories);
       } catch (error) {
         console.log(error);
       }

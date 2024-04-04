@@ -10,8 +10,8 @@ const Dashboard = () => {
   const [title, setTitle] = useState("");
   const [start_date, setStart_date] = useState("");
   const [end_date, setEnd_date] = useState("");
-  const [image, setImage] = useState("");
   const [category_id, setCategory_id] = useState(null);
+  let image = document.getElementById("image");
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -33,17 +33,13 @@ const Dashboard = () => {
     form.append("title", title);
     form.append("start_date", start_date);
     form.append("end_date", end_date);
-    form.append("image", image);
+    if (image.files && image.files[0]) {
+      form.append("image", image.files[0]);
+    }
     form.append("category_id", category_id);
-    console.log(category_id);
-    console.log(title);
-    console.log(start_date);
-    console.log(end_date);
-    console.log(image);
     setTitle("");
     setStart_date("");
     setEnd_date("");
-    setImage("");
     setCategory_id(null);
 
     try {
@@ -53,12 +49,11 @@ const Dashboard = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data", 
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       console.log(res.data);
-
     } catch (error) {
       console.log(error);
     }
@@ -77,9 +72,9 @@ const Dashboard = () => {
 
       {show && (
         <form
+          encType="multipart/form/data"
           onSubmit={handleForm}
           className=" left-[25%]  md:left-[39%] fixed top-[30%]  flex flex-col justify-between h-[60vh] p-4 bg-[#e36e02] border-2 border-black rounded-[15px]"
-          encType="multipart/form-data"
         >
           <h2 className="font-bold text-xl">Add a trajectory : </h2>
           <input
@@ -111,18 +106,14 @@ const Dashboard = () => {
           />
           <input
             className="rounded-[15px] p-2"
-            onChange={(e) => {
-              setImage(e.target.value);
-            }}
-            value={image}
             type="file"
             name="image"
+            id="image"
           />
           <select
             className="rounded-[15px] p-2"
             onChange={(e) => {
               setCategory_id(e.target.value);
-              console.log(e.target.value);
             }}
             value={category_id}
             name="category_id"
