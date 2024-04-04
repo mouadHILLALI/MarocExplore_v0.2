@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [start_date, setStart_date] = useState("");
   const [end_date, setEnd_date] = useState("");
   const [image, setImage] = useState("");
-  const [category_id, setCategory_id] = useState("");
+  const [category_id, setCategory_id] = useState(null);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -26,7 +26,7 @@ const Dashboard = () => {
 
     fetchCategories();
   }, []);
- 
+
   const handleForm = async (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -35,11 +35,16 @@ const Dashboard = () => {
     form.append("end_date", end_date);
     form.append("image", image);
     form.append("category_id", category_id);
+    console.log(category_id);
+    console.log(title);
+    console.log(start_date);
+    console.log(end_date);
+    console.log(image);
     setTitle("");
     setStart_date("");
     setEnd_date("");
     setImage("");
-    setCategory_id("");
+    setCategory_id(null);
 
     try {
       const res = await axios.post(
@@ -48,10 +53,12 @@ const Dashboard = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data", 
           },
         }
       );
       console.log(res.data);
+
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +79,7 @@ const Dashboard = () => {
         <form
           onSubmit={handleForm}
           className=" left-[25%]  md:left-[39%] fixed top-[30%]  flex flex-col justify-between h-[60vh] p-4 bg-[#e36e02] border-2 border-black rounded-[15px]"
+          encType="multipart/form-data"
         >
           <h2 className="font-bold text-xl">Add a trajectory : </h2>
           <input
@@ -114,6 +122,7 @@ const Dashboard = () => {
             className="rounded-[15px] p-2"
             onChange={(e) => {
               setCategory_id(e.target.value);
+              console.log(e.target.value);
             }}
             value={category_id}
             name="category_id"
@@ -137,7 +146,7 @@ const Dashboard = () => {
           </button>
         </form>
       )}
-      <Trajectory/>
+      <Trajectory />
     </div>
   );
 };
