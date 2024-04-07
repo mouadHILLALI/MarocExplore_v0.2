@@ -11,7 +11,10 @@ const Dashboard = () => {
   const [start_date, setStart_date] = useState("");
   const [end_date, setEnd_date] = useState("");
   const [category_id, setCategory_id] = useState(null);
+
   let image = document.getElementById("image");
+
+ 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -74,7 +77,7 @@ const Dashboard = () => {
         <form
           encType="multipart/form/data"
           onSubmit={handleForm}
-          className=" left-[25%]  md:left-[39%] fixed top-[30%]  flex flex-col justify-between h-[60vh] p-4 bg-[#e36e02] border-2 border-black rounded-[15px]"
+          className=" left-[25%] gap-1 md:left-[39%] fixed top-[10%]  flex flex-col justify-between  p-4 bg-[#e36e02]  border-2 border-black rounded-[15px] overflow-y"
         >
           <h2 className="font-bold text-xl">Add a trajectory : </h2>
           <input
