@@ -51,6 +51,19 @@ const Hero = () => {
       console.log(error);
     }
   };
+  const Search = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.get("http://localhost/api/Trajectory/Search", {
+        params: {
+          search: search,
+        },
+      });
+      res.data.content ? setTrajectories(res.data.content) : fetchtraj();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -59,9 +72,9 @@ const Hero = () => {
           Turn your road trip into an adventure.
         </p>
         <div className="flex justify-around">
-          <form className="flex gap-2">
+          <form onKeyDown={Search} className="flex gap-2">
             <input
-              className="py-2 px-4 rounded-[15px]"
+              className="py-2 text-black px-4 rounded-[15px]"
               type="search"
               placeholder="search by title ..."
               name="search"
@@ -70,9 +83,6 @@ const Hero = () => {
                 setSearch(e.target.value);
               }}
             />
-            <button className="bg-green-600 rounded-[20px] p-3 " type="submit">
-              search
-            </button>
           </form>
 
           <form onSubmit={filter} className="flex gap-2">
